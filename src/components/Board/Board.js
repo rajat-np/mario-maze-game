@@ -97,25 +97,40 @@ class Board extends Component {
         }
         return true
     }
-
+    shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    }
     componentDidMount() {
+
+        let { gridNumber } = this.state;
+
 
         document.addEventListener("keydown", this.listenArrowKeys, false);
 
-        let gridNumber = this.props.gridNumber
-        let grid = Array(gridNumber).fill(null).map(x=>Array(gridNumber).fill(null))
-        for ( var i = 0; i < gridNumber ; i++){
-            for ( var j = 0; j < gridNumber ; j++){
-                grid[i][j] = this.zeroOrOne()
-            }
-        }
-        let marioPosition = {
+
+        let zeroArray = Array(gridNumber*gridNumber-gridNumber).fill(0);
+        let oneArray = Array(gridNumber).fill(1);
+        let nonShuffledArray = oneArray.concat(zeroArray);
+
+        let shuffledArray = this.shuffleArray(nonShuffledArray);
+        console.log(shuffledArray);
+
+        let initialGrid = [];
+        while(shuffledArray.length) initialGrid.push(shuffledArray.splice(0,gridNumber));
+
+        let initialMarioPosition = {
             r:Math.floor(gridNumber/2),
             c:Math.floor(gridNumber/2)
         }
         this.setState({
-            grid,
-            marioPosition
+            grid:initialGrid,
+            marioPosition:initialMarioPosition
         })
     }
 
