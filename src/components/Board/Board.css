@@ -1,0 +1,9 @@
+.table-container{
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.table{
+    margin:auto;
+    font-size:3em,
+  }
