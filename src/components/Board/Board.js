@@ -10,13 +10,14 @@ class Board extends Component {
             grid:[],
             marioPosition:{},
             totalKeyStrokes:0,
-            isFinished:false
+            isFinished:false,
+            gridNumber:this.props.gridNumber
         }  
         this.listenArrowKeys = this.listenArrowKeys.bind(this);
     }
 
     listenArrowKeys(e){
-        let { marioPosition, grid, totalKeyStrokes } = this.state;
+        let { marioPosition, grid, totalKeyStrokes, gridNumber } = this.state;
         // console.log(grid);
 
         grid[marioPosition.r][marioPosition.c] = 0
@@ -33,13 +34,13 @@ class Board extends Component {
         if ( marioPosition.r === 0 ){
             arrowUpDisable = true
         }
-        if ( marioPosition.r === 9 ){
+        if ( marioPosition.r === gridNumber-1 ){
             arrowDownDisable = true
         }
         if ( marioPosition.c === 0 ){
             arrowLeftDisable = true
         }        
-        if ( marioPosition.c === 9 ){
+        if ( marioPosition.c === gridNumber-1 ){
             arrowRightDisable = true
         }
         if ( e.code === "ArrowUp" && !arrowUpDisable ){
