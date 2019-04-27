@@ -6,13 +6,9 @@ function App() {
 
   return (
     <div className="App">
-      <Board gridNumber = {9}/>
+      <Board gridNumber = {10}/>
     </div>
   );
 }
 
-function randomGrid(size){
-
-  return new Array(size).fill(null).map(item =>(new Array(size).fill(null)))
-}
 export default App;
