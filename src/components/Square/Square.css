@@ -1,8 +1,19 @@
 .square{
-    width: 4vw;
-    height:4vw;
-    background-color:#006699;
-    color:'white';
-    border:2px solid #cccccc;
-    table-layout:'fixed'
-  }
+  width: 4.5vw;
+  height:4.5vw;
+  background-color:#006699;
+  color:'white';
+  border:2px solid #cccccc;
+  table-layout:'fixed'
+}
+
+.square-image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square-image{
+  height: 3vw;
+  width: 3vw;
+}
