@@ -16,6 +16,31 @@ class Board extends Component {
         this.listenArrowKeys = this.listenArrowKeys.bind(this);
     }
 
+    componentDidMount() {
+
+        let { gridNumber } = this.state;
+
+        document.addEventListener("keydown", this.listenArrowKeys, false);
+
+        let zeroArray = Array(gridNumber * gridNumber - gridNumber).fill(0);
+        let oneArray = Array(gridNumber).fill(1);
+        let nonShuffledArray = oneArray.concat(zeroArray);
+
+        let shuffledArray = this.shuffleArray(nonShuffledArray);
+
+        let initialGrid = [];
+        while (shuffledArray.length) initialGrid.push(shuffledArray.splice(0, gridNumber));
+
+        let initialMarioPosition = {
+            r: Math.floor(gridNumber / 2),
+            c: Math.floor(gridNumber / 2)
+        }
+        this.setState({
+            grid: initialGrid,
+            marioPosition: initialMarioPosition
+        })
+    }
+
     listenArrowKeys(e) {
         let { marioPosition, grid, totalKeyStrokes, gridNumber } = this.state;
         console.log(totalKeyStrokes);
@@ -85,7 +110,8 @@ class Board extends Component {
         let isFinished = this.checkIfFinished();
 
         if (isFinished) {
-            alert(`You took ${totalKeyStrokes} key presses to finish the game`)
+            alert(`You took total of ${totalKeyStrokes} key press to finish the game`)
+            document.removeEventListener("keydown", this.listenArrowKeys, false);
         }
     }
 
@@ -110,34 +136,6 @@ class Board extends Component {
         return array;
     }
 
-    componentDidMount() {
-
-        let { gridNumber } = this.state;
-
-        document.addEventListener("keydown", this.listenArrowKeys, false);
-
-        let zeroArray = Array(gridNumber * gridNumber - gridNumber).fill(0);
-        let oneArray = Array(gridNumber).fill(1);
-        let nonShuffledArray = oneArray.concat(zeroArray);
-
-        let shuffledArray = this.shuffleArray(nonShuffledArray);
-
-        let initialGrid = [];
-        while (shuffledArray.length) initialGrid.push(shuffledArray.splice(0, gridNumber));
-
-        let initialMarioPosition = {
-            r: Math.floor(gridNumber / 2),
-            c: Math.floor(gridNumber / 2)
-        }
-        this.setState({
-            grid: initialGrid,
-            marioPosition: initialMarioPosition
-        })
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener("keydown", this.listenArrowKeys, false);
-    }
 
     rows = () => this.state.grid.map((r, i) =>
         <tr key={"row_" + i}>
@@ -146,10 +144,10 @@ class Board extends Component {
                 if (this.state.marioPosition.r === i && this.state.marioPosition.c === j) {
                     marioSquare = true
                 }
-                return <Square
+                return (<Square
                     key={i + "_" + j}
                     zeroOne={this.state.grid[i][j]}
-                    marioSquare={marioSquare} />
+                    marioSquare={marioSquare} />)
 
             })}
         </tr>)
