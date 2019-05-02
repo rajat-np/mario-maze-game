@@ -1,19 +1,19 @@
-.square{
+.square {
   width: 7vh;
-  height:7vh;
-  background-color:#006699;
-  color:'white';
-  border:2px solid #cccccc;
-  table-layout:'fixed'
+  height: 7vh;
+  background-color: #006699;
+  color: "white";
+  border: 2px solid #cccccc;
+  table-layout: "fixed";
 }
 
-.square-image-container{
+.square-image-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.square-image{
+.square-image {
   height: 3vw;
   width: 3vw;
 }
